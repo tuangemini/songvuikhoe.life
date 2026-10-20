@@ -51,7 +51,7 @@
 
   <!-- 1. Banner Chào Mừng 20/10 -->
   <div class="banner-celebration">
-    <span>💐 Chào mừng Ngày Phụ nữ Việt Nam 20/10! Kính chúc <strong>Cô Vân Nguyễn</strong> và một nửa thế giới luôn mạnh khỏe, rạng rỡ và ngập tràn hạnh phúc! ❤️</span>
+    <span id="bannerCelebrationText">💐 Chào mừng Ngày Phụ nữ Việt Nam 20/10! Kính chúc <strong>Cô Vân Nguyễn</strong> và một nửa thế giới luôn mạnh khỏe, rạng rỡ và ngập tràn hạnh phúc! ❤️</span>
     <a href="#goc-loi-chuc" class="banner-wish-trigger">💌 Gửi Lời Chúc Ngay</a>
   </div>
 
@@ -127,6 +127,9 @@
           <button type="button" class="font-btn" data-size="xlarge" onclick="setFontSize('xlarge', this)">A++</button>
         </div>
         <button type="button" class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Chuyển chế độ Sáng / Tối" aria-label="Chuyển giao diện Sáng Tối">🌙</button>
+        <button type="button" class="btn-admin-header" id="btnAdminHeader" onclick="handleAdminButtonClick()" title="Bảng Điều Khiển Quản Trị Viên">
+          👑 Quản Trị
+        </button>
       </div>
     </div>
   </header>
@@ -136,18 +139,18 @@
     <div class="container-wide hero-grid">
       <div class="hero-content">
         <div class="hero-badge-pill">
-          <span>🌸 Trang Web Cộng Đồng Sẻ Chia Yêu Thương</span>
+          <span id="heroBadgeText">🌸 Trang Web Cộng Đồng Sẻ Chia Yêu Thương</span>
         </div>
         <h1 class="hero-title">
           CỘNG ĐỒNG SỐNG VUI KHỎE <span>&amp; BẾP ẤM</span>
         </h1>
-        <p class="hero-subtitle">
+        <p class="hero-subtitle" id="heroSubtitleText">
           Nơi giao lưu, hỏi đáp &amp; sẻ chia kinh nghiệm <strong>Sức khỏe &amp; Dưỡng sinh</strong> – <strong>Nấu ăn &amp; Bếp ấm</strong> – <strong>Mẹo vặt cuộc sống</strong> – <strong>Gia đình &amp; Con cháu</strong>.
         </p>
 
         <blockquote class="hero-quote-box">
-          "Sức khỏe là vàng, bếp ấm là nhà. Mong rằng mỗi ngày ghé thăm trang web, các bà, các mẹ, các chị em và mỗi gia đình đều tìm thấy một mẹo hay, một món ăn lành mạnh và thật nhiều niềm vui bình an."
-          <span class="hero-quote-author">— Cô Vân Nguyễn (Quản trị viên Sáng lập)</span>
+          <span id="heroQuoteText">"Sức khỏe là vàng, bếp ấm là nhà. Mong rằng mỗi ngày ghé thăm trang web, các bà, các mẹ, các chị em và mỗi gia đình đều tìm thấy một mẹo hay, một món ăn lành mạnh và thật nhiều niềm vui bình an."</span>
+          <span class="hero-quote-author" id="heroQuoteAuthor">— Cô Vân Nguyễn (Quản trị viên Sáng lập)</span>
         </blockquote>
 
         <div class="hero-cta-group">
@@ -314,6 +317,11 @@
         <p class="section-sub">
           Tổng hợp những bí quyết dưỡng sinh, công thức nấu ăn ngọt lành và mẹo chăm sóc gia đình được yêu thích nhất tại cộng đồng.
         </p>
+        <div id="adminHandbookTopAction" class="admin-only-block" style="display: none; margin-top: 14px;">
+          <button type="button" class="btn-admin-action primary" onclick="openHandbookModal()">
+            ➕ Thêm Mẹo Cẩm Nang Mới
+          </button>
+        </div>
       </div>
 
       <div class="handbook-grid" id="handbookGrid">
@@ -461,6 +469,215 @@
       <button type="button" class="lightbox-close" onclick="closeLightbox()" aria-label="Đóng ảnh">&times;</button>
       <img id="lightboxImg" src="assets/img/co-van-nguyen.jpg" alt="Xem ảnh phóng to">
       <div class="lightbox-caption" id="lightboxCaption">Cô Vân Nguyễn - Quản trị viên Sáng lập</div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       9. BẢNG ĐIỀU KHIỂN QUẢN TRỊ VIÊN TOÀN DIỆN (ADMIN CONTROL PANEL & MODALS)
+       ======================================================================== -->
+
+  <!-- Thanh Công Cụ Quản Trị Nổi Khi Đã Đăng Nhập -->
+  <div id="adminFloatingBar" class="admin-floating-bar" style="display: none;">
+    <div class="container-wide admin-bar-inner">
+      <div class="admin-bar-status">
+        <span class="admin-crown-dot">👑</span>
+        <div>
+          <strong>Chế Độ Quản Trị Viên Đang Bật</strong>
+          <span class="admin-sync-badge" id="adminSyncStatusBadge">☁️ Đã đồng bộ tự động</span>
+        </div>
+      </div>
+      <div class="admin-bar-actions">
+        <button type="button" class="btn-admin-bar" onclick="openSiteSettingsModal()">🎨 Sửa Thông Báo &amp; Giao Diện</button>
+        <button type="button" class="btn-admin-bar" onclick="openHandbookModal()">🍵 + Thêm Cẩm Nang</button>
+        <button type="button" class="btn-admin-bar" onclick="openBackupModal()">💾 Sao Lưu &amp; Đổi PIN</button>
+        <button type="button" class="btn-admin-bar danger" onclick="logoutAdmin()">🚪 Thoát Quản Trị</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 1: Đăng Nhập Quản Trị Viên Bằng Mã PIN -->
+  <div class="admin-modal-overlay" id="adminLoginModal" onclick="closeAdminModal('adminLoginModal')">
+    <div class="admin-modal-card" style="max-width: 440px;" onclick="event.stopPropagation()">
+      <div class="admin-modal-header">
+        <h3>👑 Đăng Nhập Quản Trị Viên</h3>
+        <button type="button" class="admin-modal-close" onclick="closeAdminModal('adminLoginModal')">&times;</button>
+      </div>
+      <form id="adminLoginForm" onsubmit="submitAdminLogin(event)">
+        <div class="admin-modal-body">
+          <p class="admin-helper-text">
+            Dành riêng cho <strong>Cô Vân Nguyễn</strong> hoặc người được ủy quyền quản trị trang web. Sau khi mở khóa, cô có thể ghim bài, sửa/xóa bài viết, xóa bình luận rác, thêm cẩm nang và thay đổi thông báo ngay trên điện thoại hoặc máy tính.
+          </p>
+          <div class="form-group">
+            <label class="form-label" for="adminPinInput">🔑 Nhập Mã PIN Quản Trị:</label>
+            <input type="password" id="adminPinInput" class="form-control" placeholder="Nhập mã PIN quản trị..." required autocomplete="current-password" style="font-size: 1.2rem; text-align: center; letter-spacing: 4px; font-weight: 800;">
+          </div>
+          <div id="adminLoginError" class="admin-error-msg" style="display: none;">
+            ⚠️ Mã PIN chưa đúng. Vui lòng kiểm tra lại ạ!
+          </div>
+        </div>
+        <div class="admin-modal-footer">
+          <button type="button" class="btn-admin-cancel" onclick="closeAdminModal('adminLoginModal')">Đóng</button>
+          <button type="submit" class="btn-admin-save">🔓 Mở Bảng Quản Trị</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 2: Chỉnh Sửa Thông Báo, Khẩu Hiệu & Giao Diện Chung -->
+  <div class="admin-modal-overlay" id="adminSiteSettingsModal" onclick="closeAdminModal('adminSiteSettingsModal')">
+    <div class="admin-modal-card" onclick="event.stopPropagation()">
+      <div class="admin-modal-header">
+        <h3>🎨 Chỉnh Sửa Thông Báo &amp; Nội Dung Trang Chủ</h3>
+        <button type="button" class="admin-modal-close" onclick="closeAdminModal('adminSiteSettingsModal')">&times;</button>
+      </div>
+      <form id="adminSiteSettingsForm" onsubmit="saveSiteSettingsForm(event)">
+        <div class="admin-modal-body">
+          <div class="form-group">
+            <label class="form-label" for="cfg_bannerText">🎉 Dòng thông báo chào mừng trên cùng (Banner):</label>
+            <textarea id="cfg_bannerText" class="form-control" rows="2" required></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cfg_heroQuote">💬 Lời tâm sự / Châm ngôn của Cô Vân Nguyễn trên trang chủ:</label>
+            <textarea id="cfg_heroQuote" class="form-control" rows="3" required></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cfg_heroQuoteAuthor">✍️ Chữ ký dưới lời tâm sự:</label>
+            <input type="text" id="cfg_heroQuoteAuthor" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cfg_defaultAuthor">👑 Tên người đăng mặc định tại ô Đặt Câu Hỏi / Trả Lời:</label>
+            <input type="text" id="cfg_defaultAuthor" class="form-control" required>
+          </div>
+        </div>
+        <div class="admin-modal-footer">
+          <button type="button" class="btn-admin-cancel" onclick="closeAdminModal('adminSiteSettingsModal')">Hủy</button>
+          <button type="submit" class="btn-admin-save">💾 Lưu Thay Đổi Ngay</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 3: Chỉnh Sửa Bài Viết / Câu Hỏi Diễn Đàn -->
+  <div class="admin-modal-overlay" id="adminEditPostModal" onclick="closeAdminModal('adminEditPostModal')">
+    <div class="admin-modal-card" onclick="event.stopPropagation()">
+      <div class="admin-modal-header">
+        <h3>✏️ Chỉnh Sửa Bài Viết Cộng Đồng</h3>
+        <button type="button" class="admin-modal-close" onclick="closeAdminModal('adminEditPostModal')">&times;</button>
+      </div>
+      <form id="adminEditPostForm" onsubmit="saveEditedPost(event)">
+        <input type="hidden" id="edit_q_id">
+        <div class="admin-modal-body">
+          <div class="form-group">
+            <label class="form-label" for="edit_q_author">👤 Tên người đăng:</label>
+            <input type="text" id="edit_q_author" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="edit_q_category">📂 Chuyên mục:</label>
+            <select id="edit_q_category" class="form-control">
+              <option value="Sức khỏe & Dưỡng sinh">🍵 Sức khỏe &amp; Dưỡng sinh</option>
+              <option value="Nấu ăn & Bếp ấm">🍲 Nấu ăn &amp; Bếp ấm</option>
+              <option value="Mẹo vặt cuộc sống">🌱 Mẹo vặt cuộc sống</option>
+              <option value="Gia đình & Con cháu">👨‍👩‍👧‍👦 Gia đình &amp; Con cháu</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="edit_q_title">📌 Tiêu đề bài viết:</label>
+            <input type="text" id="edit_q_title" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="edit_q_content">📝 Nội dung chi tiết:</label>
+            <textarea id="edit_q_content" class="form-control" rows="4" required></textarea>
+          </div>
+        </div>
+        <div class="admin-modal-footer">
+          <button type="button" class="btn-admin-cancel" onclick="closeAdminModal('adminEditPostModal')">Hủy</button>
+          <button type="submit" class="btn-admin-save">💾 Lưu Bài Viết</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 4: Thêm / Sửa Mục Cẩm Nang Dưỡng Sinh & Bếp Ấm -->
+  <div class="admin-modal-overlay" id="adminHandbookModal" onclick="closeAdminModal('adminHandbookModal')">
+    <div class="admin-modal-card" onclick="event.stopPropagation()">
+      <div class="admin-modal-header">
+        <h3 id="handbookModalTitle">🍵 Thêm / Sửa Cẩm Nang Bếp Ấm</h3>
+        <button type="button" class="admin-modal-close" onclick="closeAdminModal('adminHandbookModal')">&times;</button>
+      </div>
+      <form id="adminHandbookForm" onsubmit="saveHandbookItem(event)">
+        <input type="hidden" id="hb_edit_id">
+        <div class="admin-modal-body">
+          <div style="display: grid; grid-template-columns: 110px 1fr; gap: 12px;">
+            <div class="form-group">
+              <label class="form-label" for="hb_icon">Biểu tượng:</label>
+              <input type="text" id="hb_icon" class="form-control" value="🍵" required style="text-align: center; font-size: 1.3rem;">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="hb_category">Chuyên mục:</label>
+              <select id="hb_category" class="form-control">
+                <option value="Sức khỏe & Dưỡng sinh">🍵 Sức khỏe &amp; Dưỡng sinh</option>
+                <option value="Nấu ăn & Bếp ấm">🍲 Nấu ăn &amp; Bếp ấm</option>
+                <option value="Mẹo vặt cuộc sống">🌱 Mẹo vặt cuộc sống</option>
+                <option value="Gia đình & Con cháu">👨‍👩‍👧‍👦 Gia đình &amp; Con cháu</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="hb_title">Tiêu đề mẹo / công thức:</label>
+            <input type="text" id="hb_title" class="form-control" placeholder="VD: Trà gừng táo đỏ giữ ấm mùa đông..." required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="hb_summary">Tóm tắt ngắn (1 câu):</label>
+            <input type="text" id="hb_summary" class="form-control" placeholder="VD: Giúp lưu thông khí huyết, ngủ ngon và ấm bụng..." required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="hb_details">Hướng dẫn chi tiết:</label>
+            <textarea id="hb_details" class="form-control" rows="4" placeholder="Nhập cách làm chi tiết và lưu ý..." required></textarea>
+          </div>
+        </div>
+        <div class="admin-modal-footer">
+          <button type="button" class="btn-admin-cancel" onclick="closeAdminModal('adminHandbookModal')">Hủy</button>
+          <button type="submit" class="btn-admin-save">💾 Lưu Cẩm Nang</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 5: Sao Lưu Dữ Liệu, Khôi Phục & Đổi Mã PIN Quản Trị -->
+  <div class="admin-modal-overlay" id="adminBackupModal" onclick="closeAdminModal('adminBackupModal')">
+    <div class="admin-modal-card" onclick="event.stopPropagation()">
+      <div class="admin-modal-header">
+        <h3>💾 Sao Lưu Dữ Liệu &amp; Bảo Mật Quản Trị</h3>
+        <button type="button" class="admin-modal-close" onclick="closeAdminModal('adminBackupModal')">&times;</button>
+      </div>
+      <div class="admin-modal-body">
+        <div class="admin-section-box">
+          <h4>🔑 1. Đổi Mã PIN Quản Trị Viên</h4>
+          <p class="admin-helper-text">Đổi mã PIN mới để chỉ mình Cô Vân Nguyễn hoặc người được giao quyền mở được bảng quản trị:</p>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <input type="password" id="newAdminPinInput" class="form-control" placeholder="Nhập mã PIN mới (tối thiểu 4 ký tự)..." style="flex: 1; min-width: 200px;">
+            <button type="button" class="btn-admin-save" onclick="changeAdminPin()">Đổi Mã PIN</button>
+          </div>
+        </div>
+
+        <div class="admin-section-box" style="margin-top: 16px;">
+          <h4>📦 2. Tải Về Hoặc Khôi Phục Toàn Bộ Dữ Liệu Trang Web</h4>
+          <p class="admin-helper-text">
+            Cô có thể tải toàn bộ bài viết, bình luận, cẩm nang và lời chúc về máy làm bản sao lưu an toàn, hoặc nạp lại từ tệp đã lưu bất cứ lúc nào:
+          </p>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;">
+            <button type="button" class="btn-admin-action primary" onclick="exportCommunityBackup()">📥 Tải File Sao Lưu (.json)</button>
+            <label class="btn-admin-action secondary" style="cursor: pointer; margin: 0;">
+              📤 Nạp File Khôi Phục
+              <input type="file" id="importBackupFileInput" accept=".json" style="display: none;" onchange="importCommunityBackup(event)">
+            </label>
+            <button type="button" class="btn-admin-action danger" onclick="resetToDefaultCommunityData()">🔄 Khôi Phục Dữ Liệu Gốc Ban Đầu</button>
+          </div>
+        </div>
+      </div>
+      <div class="admin-modal-footer">
+        <button type="button" class="btn-admin-cancel" onclick="closeAdminModal('adminBackupModal')">Đóng</button>
+      </div>
     </div>
   </div>
 

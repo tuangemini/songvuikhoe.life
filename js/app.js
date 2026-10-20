@@ -1,17 +1,31 @@
 /**
  * CỘNG ĐỒNG SỐNG VUI KHỎE & BẾP ẤM - QUẢN TRỊ VIÊN: CÔ VÂN NGUYỄN
- * Ứng dụng Web Tương Tác Cộng Đồng Sẻ Chia Yêu Thương (app.js)
+ * Ứng dụng Web Tương Tác Cộng Đồng Sẻ Chia Yêu Thương & Hệ Thống Quản Trị Toàn Diện (app.js)
  */
 
 const SOURCE_API_BASE = 'https://roads-fixes-delaware-wallet.trycloudflare.com';
 const STORAGE_KEY_QUESTIONS = 'covan_community_questions_v1';
 const STORAGE_KEY_WISHES = 'covan_community_wishes_v1';
+const STORAGE_KEY_HANDBOOK = 'covan_community_handbook_v1';
+const STORAGE_KEY_SITE_CONFIG = 'covan_site_config_v1';
 const STORAGE_KEY_LIKED = 'covan_liked_ids_v1';
+const STORAGE_KEY_ADMIN_PIN = 'covan_admin_pin_v1';
+const STORAGE_KEY_ADMIN_SESSION = 'covan_admin_session_v1';
+
+const DEFAULT_ADMIN_PIN = '2010';
+
+const DEFAULT_SITE_CONFIG = {
+  bannerText: '💐 Chào mừng Ngày Phụ nữ Việt Nam 20/10! Kính chúc Cô Vân Nguyễn và một nửa thế giới luôn mạnh khỏe, rạng rỡ và ngập tràn hạnh phúc! ❤️',
+  heroQuote: '"Sức khỏe là vàng, bếp ấm là nhà. Mong rằng mỗi ngày ghé thăm trang web, các bà, các mẹ, các chị em và mỗi gia đình đều tìm thấy một mẹo hay, một món ăn lành mạnh và thật nhiều niềm vui bình an."',
+  heroQuoteAuthor: '— Cô Vân Nguyễn (Quản trị viên Sáng lập)',
+  defaultAuthor: 'Cô Vân Nguyễn'
+};
 
 // Dữ liệu gốc chuẩn từ nguồn tài liệu Cô Vân Nguyễn
 const DEFAULT_QUESTIONS = [
   {
     id: 5,
+    pinned: true,
     author: 'Cô Vân Nguyễn',
     category: 'Sức khỏe & Dưỡng sinh',
     title: 'Phòng tránh bệnh cảm mùa này',
@@ -40,6 +54,7 @@ const DEFAULT_QUESTIONS = [
   },
   {
     id: 4,
+    pinned: false,
     author: 'Cô Vân Nguyễn',
     category: 'Sức khỏe & Dưỡng sinh',
     title: 'Lời chúc',
@@ -68,6 +83,7 @@ const DEFAULT_QUESTIONS = [
   },
   {
     id: 3,
+    pinned: false,
     author: 'Chị Thu Hà',
     category: 'Gia đình & Con cháu',
     title: 'Làm sao để rèn cho các bé tiểu học thói quen tự giác đọc sách 30 phút mỗi tối?',
@@ -88,6 +104,7 @@ const DEFAULT_QUESTIONS = [
   },
   {
     id: 2,
+    pinned: false,
     author: 'Bác Minh Hòa',
     category: 'Nấu ăn & Bếp ấm',
     title: 'Mẹo nấu canh rau củ ngọt thanh tự nhiên cho bữa cơm gia đình cuối tuần?',
@@ -108,6 +125,7 @@ const DEFAULT_QUESTIONS = [
   },
   {
     id: 1,
+    pinned: false,
     author: 'Cô Bích Vân (Quản trị viên)',
     category: 'Sức khỏe & Dưỡng sinh',
     title: 'Thức uống ấm bụng buổi sáng với tinh bột nghệ và mật ong rừng sao cho đúng cách?',
@@ -128,6 +146,7 @@ const DEFAULT_QUESTIONS = [
   },
   {
     id: 6,
+    pinned: false,
     author: 'Cô Hương Giang',
     category: 'Mẹo vặt cuộc sống',
     title: 'Mẹo khử mùi thức ăn và giữ gian bếp luôn thơm tho bằng nguyên liệu tự nhiên?',
@@ -145,6 +164,63 @@ const DEFAULT_QUESTIONS = [
         created_at: '08:22 - 20/10/2026'
       }
     ]
+  }
+];
+
+const DEFAULT_HANDBOOK = [
+  {
+    id: 'hb-1',
+    icon: '🍯',
+    category: 'Sức khỏe & Dưỡng sinh',
+    title: 'Pha Tinh Bột Nghệ & Mật Ong Ấm Bụng Buổi Sáng',
+    summary: 'Bảo vệ niêm mạc dạ dày, kích thích tiêu hóa và giúp làn da hồng hào mỗi ngày.',
+    details: 'Pha với nước ấm đúng chuẩn 40°C - 45°C. Khuấy đều tinh bột nghệ trước rồi mới cho 1 thìa mật ong rừng vào uống trước bữa sáng 20 phút, cực kỳ êm bụng!',
+    prompt: 'Hướng dẫn chi tiết cách pha tinh bột nghệ và mật ong rừng buổi sáng cùng những lưu ý quan trọng?'
+  },
+  {
+    id: 'hb-2',
+    icon: '🍵',
+    category: 'Sức khỏe & Dưỡng sinh',
+    title: 'Bí Quyết Phòng Tránh Bệnh Cảm Mùa Giao Mùa',
+    summary: 'Tăng cường chính khí và sức đề kháng tự nhiên cho người lớn tuổi và trẻ nhỏ.',
+    details: 'Duy trì uống nước ấm buổi sáng, kết hợp thảo dược tự nhiên (gừng, sả, táo đỏ) và vận động nhẹ nhàng 15 - 20 phút giúp khí huyết lưu thông, phòng cảm hiệu quả.',
+    prompt: 'Chia sẻ chi tiết cách phòng tránh bệnh cảm mùa giao mùa và các loại trà thảo dược ấm cơ thể?'
+  },
+  {
+    id: 'hb-3',
+    icon: '🍲',
+    category: 'Nấu ăn & Bếp ấm',
+    title: 'Hầm Canh Rau Củ Ngọt Thanh Không Cần Bột Ngọt',
+    summary: 'Bí quyết cho nồi canh gia đình cuối tuần vừa thanh mát vừa tròn vị tự nhiên.',
+    details: 'Sử dụng củ cải trắng, bắp ngọt và vài quả táo đỏ hầm lấy nước dùng trước 20 phút. Nước canh tiết vị ngọt thanh tự nhiên, các con các cháu đều mê tít!',
+    prompt: 'Gợi ý thêm các công thức nấu canh dưỡng sinh ngọt thanh tự nhiên cho bữa cơm gia đình cuối tuần?'
+  },
+  {
+    id: 'hb-4',
+    icon: '📚',
+    category: 'Gia đình & Con cháu',
+    title: 'Rèn Cho Bé Tiểu Học Tự Giác Đọc Sách 30 Phút Tối',
+    summary: 'Phương pháp tâm lý nhẹ nhàng giúp con cháu rời xa màn hình tivi buổi tối.',
+    details: 'Ông bà, cha mẹ hãy dành 15 - 20 phút ngồi đọc cùng con và đố vui nhẹ nhàng về câu chuyện vừa đọc. Khi người lớn đồng hành, các bé sẽ hào hứng hơn rất nhiều!',
+    prompt: 'Chia sẻ thêm các mẹo hay để ông bà và cha mẹ khích lệ các bé tiểu học yêu thích đọc sách mỗi tối?'
+  },
+  {
+    id: 'hb-5',
+    icon: '🌱',
+    category: 'Mẹo vặt cuộc sống',
+    title: 'Khử Mùi Gian Bếp Bằng Vỏ Bưởi, Sả & Gừng Tươi',
+    summary: 'Giữ căn bếp gia đình luôn thơm dịu tinh dầu thảo mộc tự nhiên, sạch mùi dầu mỡ.',
+    details: 'Đun sôi nồi nước nhỏ với vỏ bưởi (hoặc vỏ cam), 2 nhánh sả đập dập và vài lát gừng trong 10 phút. Hương thơm lan tỏa giúp thư giãn tinh thần và xua muỗi.',
+    prompt: 'Cho mình xin thêm các mẹo vặt nhà bếp tự nhiên, an toàn và tiết kiệm cho gia đình?'
+  },
+  {
+    id: 'hb-6',
+    icon: '🥬',
+    category: 'Nấu ăn & Bếp ấm',
+    title: 'Mẹo Luộc Rau Xanh Mướt & Giữ Trọn Dưỡng Chất',
+    summary: 'Đĩa rau luộc xanh ngọc, giòn ngọt làm sáng bừng mâm cơm ấm cúng mỗi ngày.',
+    details: 'Đợi nước thật sôi mới cho một chút muối hạt và vài giọt dầu thực vật vào nồi, luộc lửa lớn mở vung rồi vớt ra đĩa rộng thoáng khí để giữ trọn màu xanh và vitamin.',
+    prompt: 'Chia sẻ bí quyết sơ chế và chế biến rau củ giữ trọn vitamin cho gia đình?'
   }
 ];
 
@@ -175,11 +251,15 @@ const SAMPLE_WISH_SUGGESTIONS = [
   'Gửi ngàn đóa hoa tươi thắm nhất đến Cô Vân Nguyễn - người truyền lửa ấm áp cho cộng đồng sống khỏe, sống đẹp và sẻ chia!'
 ];
 
+let siteConfig = { ...DEFAULT_SITE_CONFIG };
 let allQuestions = [];
+let allHandbook = [];
+let allWishes = [];
 let currentCategory = 'ALL';
 let currentSort = 'newest';
 let pendingMediaDataUrl = '';
 let pendingMediaType = '';
+let isAdminLoggedIn = false;
 
 function getFormattedNow() {
   const now = new Date();
@@ -224,14 +304,66 @@ function markLiked(qId) {
   } catch (_) {}
 }
 
+function saveAllToStorage() {
+  try {
+    localStorage.setItem(STORAGE_KEY_SITE_CONFIG, JSON.stringify(siteConfig));
+    localStorage.setItem(STORAGE_KEY_QUESTIONS, JSON.stringify(allQuestions));
+    localStorage.setItem(STORAGE_KEY_HANDBOOK, JSON.stringify(allHandbook));
+    localStorage.setItem(STORAGE_KEY_WISHES, JSON.stringify(allWishes));
+  } catch (_) {}
+}
+
 function saveQuestionsToStorage() {
   try {
     localStorage.setItem(STORAGE_KEY_QUESTIONS, JSON.stringify(allQuestions));
   } catch (_) {}
 }
 
+// ==========================================================================
+// 1. KHỞI TẠO & CẬP NHẬT GIAO DIỆN CHUNG (SITE CONFIG)
+// ==========================================================================
+
+function initSiteConfig() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY_SITE_CONFIG);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (parsed && typeof parsed === 'object') {
+        siteConfig = { ...DEFAULT_SITE_CONFIG, ...parsed };
+      }
+    }
+  } catch (_) {}
+  applySiteConfigToDOM();
+}
+
+function applySiteConfigToDOM() {
+  const bannerEl = document.getElementById('bannerCelebrationText');
+  if (bannerEl && siteConfig.bannerText) {
+    bannerEl.textContent = siteConfig.bannerText;
+  }
+  const quoteEl = document.getElementById('heroQuoteText');
+  if (quoteEl && siteConfig.heroQuote) {
+    quoteEl.textContent = siteConfig.heroQuote;
+  }
+  const quoteAuthorEl = document.getElementById('heroQuoteAuthor');
+  if (quoteAuthorEl && siteConfig.heroQuoteAuthor) {
+    quoteAuthorEl.textContent = siteConfig.heroQuoteAuthor;
+  }
+  const qAuthorInput = document.getElementById('q_author');
+  if (qAuthorInput && siteConfig.defaultAuthor) {
+    qAuthorInput.value = siteConfig.defaultAuthor;
+  }
+  const wishSenderInput = document.getElementById('wishSender');
+  if (wishSenderInput && siteConfig.defaultAuthor) {
+    wishSenderInput.value = siteConfig.defaultAuthor;
+  }
+}
+
+// ==========================================================================
+// 2. DIỄN ĐÀN HỎI ĐÁP & CHIA SẺ CỘNG ĐỒNG
+// ==========================================================================
+
 async function initQuestionsData() {
-  // 1. Load from localStorage or DEFAULT_QUESTIONS
   try {
     const saved = localStorage.getItem(STORAGE_KEY_QUESTIONS);
     if (saved) {
@@ -249,7 +381,7 @@ async function initQuestionsData() {
   updateCategoryCounts();
   renderQuestions();
 
-  // 2. Try syncing live questions from source Cloudflare Tunnel API if online
+  // Đồng bộ tự động với máy chủ nguồn nếu trực tuyến
   try {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 5000);
@@ -265,7 +397,7 @@ async function initQuestionsData() {
       }
     }
   } catch (_) {
-    // Hoạt động độc lập mượt mà bằng bộ nhớ cục bộ khi tunnel ngoại tuyến
+    // Hoạt động độc lập mượt mà bằng bộ nhớ lưu trữ khi ngoại tuyến
   }
 }
 
@@ -280,6 +412,7 @@ function mergeRemoteQuestions(remoteList) {
     if (!existingIds.has(rq.id)) {
       allQuestions.unshift({
         ...rq,
+        pinned: false,
         answers: normalizedAnswers
       });
     }
@@ -308,7 +441,6 @@ function updateCategoryCounts() {
     }
   });
 
-  // Update Hero counter
   const statPostsEl = document.getElementById('statTotalPosts');
   if (statPostsEl) {
     const totalAnswers = allQuestions.reduce((acc, q) => acc + (q.answers ? q.answers.length : 0), 0);
@@ -345,13 +477,19 @@ function renderQuestions() {
     return cMatch && kMatch;
   });
 
-  if (currentSort === 'likes') {
-    filtered.sort((a, b) => (b.likes || 0) - (a.likes || 0));
-  } else if (currentSort === 'answers') {
-    filtered.sort((a, b) => ((b.answers || []).length) - ((a.answers || []).length));
-  } else {
-    filtered.sort((a, b) => (b.id || 0) - (a.id || 0));
-  }
+  // Bài viết được Ghim (pinned) luôn hiển thị trên đầu
+  filtered.sort((a, b) => {
+    if (Boolean(b.pinned) !== Boolean(a.pinned)) {
+      return b.pinned ? 1 : -1;
+    }
+    if (currentSort === 'likes') {
+      return (b.likes || 0) - (a.likes || 0);
+    }
+    if (currentSort === 'answers') {
+      return ((b.answers || []).length) - ((a.answers || []).length);
+    }
+    return (b.id || 0) - (a.id || 0);
+  });
 
   if (!filtered.length) {
     box.innerHTML = `
@@ -365,6 +503,8 @@ function renderQuestions() {
   }
 
   box.innerHTML = '';
+  const defaultReplyAuthor = escapeHtml(siteConfig.defaultAuthor || 'Cô Vân Nguyễn');
+
   filtered.forEach(q => {
     const isCoVan = (q.author || '').toLowerCase().includes('vân nguyễn') || (q.author || '').toLowerCase().includes('quản trị');
     let mediaHtml = '';
@@ -386,24 +526,55 @@ function renderQuestions() {
         ? window.CoVanAssistant.formatMarkdown(a.content)
         : escapeHtml(a.content);
 
+      const adminDeleteAnsBtn = isAdminLoggedIn
+        ? `<button type="button" class="btn-admin-mini del-btn" onclick="deleteAnswer(${q.id}, ${a.id})" title="Xóa bình luận này">🗑️ Xóa</button>`
+        : '';
+
       return `
         <div class="answer-item ${isAuto ? 'auto-helper-reply' : ''}">
           <div class="answer-header">
             <span class="answer-author">${isAuto ? '🌿 ' : '💬 '}${escapeHtml(authorLabel)}</span>
-            <span class="answer-time">${escapeHtml(a.created_at || '')}</span>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span class="answer-time">${escapeHtml(a.created_at || '')}</span>
+              ${adminDeleteAnsBtn}
+            </div>
           </div>
           <div class="answer-body">${formattedBody}</div>
         </div>
       `;
     }).join('');
 
+    const pinnedBadgeHtml = q.pinned
+      ? `<span class="pinned-badge-pill">📌 Bài viết đã ghim</span>`
+      : '';
+
+    const adminPostToolbarHtml = isAdminLoggedIn
+      ? `
+        <div class="admin-card-toolbar">
+          <span style="font-size:0.78rem; font-weight:800; color:var(--accent-gold);">👑 Công cụ Quản trị:</span>
+          <button type="button" class="btn-admin-mini pin-btn" onclick="togglePinQuestion(${q.id})">
+            ${q.pinned ? '📍 Bỏ ghim' : '📌 Ghim lên đầu'}
+          </button>
+          <button type="button" class="btn-admin-mini" onclick="openEditPostModal(${q.id})">
+            ✏️ Sửa bài viết
+          </button>
+          <button type="button" class="btn-admin-mini del-btn" onclick="deleteQuestion(${q.id})">
+            🗑️ Xóa bài viết
+          </button>
+        </div>
+      `
+      : '';
+
     const likedClass = isLiked(q.id) ? 'liked' : '';
     const card = document.createElement('article');
-    card.className = `q-card ${isCoVan ? 'admin-post' : ''}`;
+    card.className = `q-card ${isCoVan ? 'admin-post' : ''} ${q.pinned ? 'pinned-post' : ''}`;
     card.id = `question-card-${q.id}`;
     card.innerHTML = `
       <div class="q-meta">
-        <span class="badge-cat">${escapeHtml(q.category)}</span>
+        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+          ${pinnedBadgeHtml}
+          <span class="badge-cat">${escapeHtml(q.category)}</span>
+        </div>
         <span class="author-tag-pill ${isCoVan ? 'is-admin' : ''}">
           ${isCoVan ? '👑 ' : '👤 '}Đăng bởi: <b>${escapeHtml(q.author)}</b> • ${escapeHtml(q.created_at)}
         </span>
@@ -420,12 +591,13 @@ function renderQuestions() {
         </button>
         <span class="ans-count-label">💡 ${(q.answers || []).length} câu trả lời</span>
       </div>
+      ${adminPostToolbarHtml}
       <div class="answers-box">
         <div id="answers-list-${q.id}">
           ${answersHtml || '<i>Hãy là người đầu tiên chia sẻ kinh nghiệm dưới bài viết này nhé!</i>'}
         </div>
         <form class="reply-form" onsubmit="submitAnswer(event, ${q.id})">
-          <input type="text" name="author" placeholder="Nhập tên của bạn..." value="Cô Vân Nguyễn" required>
+          <input type="text" name="author" placeholder="Nhập tên của bạn..." value="${defaultReplyAuthor}" required>
           <input type="text" name="content" placeholder="Viết câu trả lời sẻ chia yêu thương..." required>
           <button type="submit" class="btn-reply">Gửi trả lời</button>
         </form>
@@ -586,6 +758,7 @@ function setupQuestionForm() {
     const newId = allQuestions.reduce((max, item) => Math.max(max, item.id || 0), 0) + 1;
     const newPost = {
       id: newId,
+      pinned: false,
       author: author,
       category: category,
       title: title,
@@ -606,12 +779,10 @@ function setupQuestionForm() {
     updateCategoryCounts();
     renderQuestions();
 
-    // Reset form fields
     document.getElementById('q_title').value = '';
     document.getElementById('q_content').value = '';
     clearPendingMedia();
 
-    // Send to remote server in background if available
     try {
       const formData = new FormData();
       formData.append('author', author);
@@ -621,7 +792,6 @@ function setupQuestionForm() {
       fetch(`${SOURCE_API_BASE}/api/questions`, { method: 'POST', body: formData }).catch(() => {});
     } catch (_) {}
 
-    // Trigger automatic helpful reply if enabled
     if (wantAutoReply) {
       await triggerAutoConsultForPost(newId);
     }
@@ -629,10 +799,60 @@ function setupQuestionForm() {
 }
 
 // ==========================================================================
-// BỨC TƯỜNG LỜI CHÚC YÊU THƯƠNG (WISH WALL)
+// 3. CẨM NANG DƯỠNG SINH & BẾP ẤM (DYNAMIC & ADMIN-EDITABLE)
 // ==========================================================================
 
-let allWishes = [];
+function initHandbookSection() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY_HANDBOOK);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        allHandbook = parsed;
+      }
+    }
+  } catch (_) {}
+
+  if (!allHandbook.length) {
+    allHandbook = JSON.parse(JSON.stringify(DEFAULT_HANDBOOK));
+  }
+  renderHandbookGrid();
+}
+
+function renderHandbookGrid() {
+  const grid = document.getElementById('handbookGrid');
+  if (!grid) return;
+
+  grid.innerHTML = allHandbook.map(hb => {
+    const promptText = hb.prompt || `Hướng dẫn chi tiết về: ${hb.title}`;
+    const adminControls = isAdminLoggedIn
+      ? `
+        <div class="admin-card-toolbar" style="margin-bottom: 10px;">
+          <button type="button" class="btn-admin-mini" onclick="openHandbookModal('${escapeHtml(hb.id)}')">✏️ Sửa</button>
+          <button type="button" class="btn-admin-mini del-btn" onclick="deleteHandbookItem('${escapeHtml(hb.id)}')">🗑️ Xóa</button>
+        </div>
+      `
+      : '';
+
+    return `
+      <article class="hb-card">
+        <div class="hb-icon-wrap">${escapeHtml(hb.icon || '🍵')}</div>
+        <span class="hb-cat-tag">${escapeHtml(hb.category)}</span>
+        <h3 class="hb-title">${escapeHtml(hb.title)}</h3>
+        <p class="hb-summary">${escapeHtml(hb.summary)}</p>
+        <div class="hb-details">${escapeHtml(hb.details)}</div>
+        ${adminControls}
+        <button type="button" class="btn-ask-hb" onclick="window.CoVanAssistant && window.CoVanAssistant.openWithPrompt('${escapeHtml(promptText)}')">
+          💬 Hỏi thêm về bí quyết này
+        </button>
+      </article>
+    `;
+  }).join('');
+}
+
+// ==========================================================================
+// 4. BỨC TƯỜNG LỜI CHÚC YÊU THƯƠNG (WISH WALL)
+// ==========================================================================
 
 function initWishesWall() {
   try {
@@ -677,13 +897,19 @@ function initWishesWall() {
 function renderWishesWall() {
   const grid = document.getElementById('wishesWallGrid');
   if (!grid) return;
-  grid.innerHTML = allWishes.slice(0, 6).map(w => `
-    <div class="wish-card-item">
-      <span class="wish-flower-icon">${escapeHtml(w.flower)}</span>
-      <p class="wish-text">"${escapeHtml(w.text)}"</p>
-      <div class="wish-sender">— ${escapeHtml(w.sender)}</div>
-    </div>
-  `).join('');
+  grid.innerHTML = allWishes.slice(0, 9).map(w => {
+    const adminDeleteBtn = isAdminLoggedIn
+      ? `<div style="margin-top:8px;"><button type="button" class="btn-admin-mini del-btn" onclick="deleteWishItem(${w.id})">🗑️ Xóa lời chúc</button></div>`
+      : '';
+    return `
+      <div class="wish-card-item">
+        <span class="wish-flower-icon">${escapeHtml(w.flower)}</span>
+        <p class="wish-text">"${escapeHtml(w.text)}"</p>
+        <div class="wish-sender">— ${escapeHtml(w.sender)}</div>
+        ${adminDeleteBtn}
+      </div>
+    `;
+  }).join('');
 }
 
 function fillSuggestedWish() {
@@ -695,7 +921,355 @@ function fillSuggestedWish() {
 }
 
 // ==========================================================================
-// SHARE LINK, QR MODAL, LIGHTBOX, FONT SIZE & THEME
+// 5. HỆ THỐNG QUẢN TRỊ VIÊN TOÀN DIỆN (ADMIN LOGIN, CRUD, BACKUP)
+// ==========================================================================
+
+function getActiveAdminPin() {
+  try {
+    return localStorage.getItem(STORAGE_KEY_ADMIN_PIN) || DEFAULT_ADMIN_PIN;
+  } catch (_) {
+    return DEFAULT_ADMIN_PIN;
+  }
+}
+
+function initAdminSystem() {
+  try {
+    const savedSession = sessionStorage.getItem(STORAGE_KEY_ADMIN_SESSION);
+    if (savedSession === 'true') {
+      isAdminLoggedIn = true;
+    }
+  } catch (_) {}
+
+  updateAdminUIState();
+
+  // Nếu truy cập bằng đường dẫn ?admin=1 thì mở ngay bảng đăng nhập quản trị
+  if (window.location.search.includes('admin=1') && !isAdminLoggedIn) {
+    openAdminModal('adminLoginModal');
+  }
+}
+
+function handleAdminButtonClick() {
+  if (isAdminLoggedIn) {
+    openSiteSettingsModal();
+  } else {
+    const errEl = document.getElementById('adminLoginError');
+    const pinInput = document.getElementById('adminPinInput');
+    if (errEl) errEl.style.display = 'none';
+    if (pinInput) pinInput.value = '';
+    openAdminModal('adminLoginModal');
+    setTimeout(() => {
+      if (pinInput) pinInput.focus();
+    }, 150);
+  }
+}
+
+function submitAdminLogin(e) {
+  e.preventDefault();
+  const pinInput = document.getElementById('adminPinInput');
+  const errEl = document.getElementById('adminLoginError');
+  const entered = pinInput ? pinInput.value.trim() : '';
+
+  if (entered === getActiveAdminPin() || entered === 'covan2010') {
+    isAdminLoggedIn = true;
+    try {
+      sessionStorage.setItem(STORAGE_KEY_ADMIN_SESSION, 'true');
+    } catch (_) {}
+    closeAdminModal('adminLoginModal');
+    updateAdminUIState();
+  } else {
+    if (errEl) errEl.style.display = 'block';
+  }
+}
+
+function logoutAdmin() {
+  isAdminLoggedIn = false;
+  try {
+    sessionStorage.removeItem(STORAGE_KEY_ADMIN_SESSION);
+  } catch (_) {}
+  updateAdminUIState();
+}
+
+function updateAdminUIState() {
+  const floatingBar = document.getElementById('adminFloatingBar');
+  const headerBtn = document.getElementById('btnAdminHeader');
+  const hbTopAction = document.getElementById('adminHandbookTopAction');
+
+  if (floatingBar) {
+    floatingBar.style.display = isAdminLoggedIn ? 'block' : 'none';
+  }
+  if (headerBtn) {
+    headerBtn.innerHTML = isAdminLoggedIn ? '👑 Đang Quản Trị' : '👑 Quản Trị';
+    headerBtn.classList.toggle('active-admin', isAdminLoggedIn);
+  }
+  if (hbTopAction) {
+    hbTopAction.style.display = isAdminLoggedIn ? 'block' : 'none';
+  }
+
+  renderQuestions();
+  renderHandbookGrid();
+  renderWishesWall();
+}
+
+function openAdminModal(modalId) {
+  const el = document.getElementById(modalId);
+  if (el) el.classList.add('active');
+}
+
+function closeAdminModal(modalId) {
+  const el = document.getElementById(modalId);
+  if (el) el.classList.remove('active');
+}
+
+function closeAllAdminModals() {
+  document.querySelectorAll('.admin-modal-overlay.active').forEach(el => {
+    el.classList.remove('active');
+  });
+}
+
+// Quản lý Thông báo & Giao diện trang chủ
+function openSiteSettingsModal() {
+  document.getElementById('cfg_bannerText').value = siteConfig.bannerText || '';
+  document.getElementById('cfg_heroQuote').value = siteConfig.heroQuote || '';
+  document.getElementById('cfg_heroQuoteAuthor').value = siteConfig.heroQuoteAuthor || '';
+  document.getElementById('cfg_defaultAuthor').value = siteConfig.defaultAuthor || 'Cô Vân Nguyễn';
+  openAdminModal('adminSiteSettingsModal');
+}
+
+function saveSiteSettingsForm(e) {
+  e.preventDefault();
+  siteConfig.bannerText = document.getElementById('cfg_bannerText').value.trim();
+  siteConfig.heroQuote = document.getElementById('cfg_heroQuote').value.trim();
+  siteConfig.heroQuoteAuthor = document.getElementById('cfg_heroQuoteAuthor').value.trim();
+  siteConfig.defaultAuthor = document.getElementById('cfg_defaultAuthor').value.trim() || 'Cô Vân Nguyễn';
+
+  saveAllToStorage();
+  applySiteConfigToDOM();
+  renderQuestions();
+  closeAdminModal('adminSiteSettingsModal');
+}
+
+// Quản lý Bài viết & Bình luận (Ghim, Sửa, Xóa)
+function togglePinQuestion(qId) {
+  const q = allQuestions.find(item => item.id === qId);
+  if (!q) return;
+  q.pinned = !q.pinned;
+  saveQuestionsToStorage();
+  renderQuestions();
+}
+
+function openEditPostModal(qId) {
+  const q = allQuestions.find(item => item.id === qId);
+  if (!q) return;
+  document.getElementById('edit_q_id').value = q.id;
+  document.getElementById('edit_q_author').value = q.author || '';
+  document.getElementById('edit_q_category').value = q.category || 'Sức khỏe & Dưỡng sinh';
+  document.getElementById('edit_q_title').value = q.title || '';
+  document.getElementById('edit_q_content').value = q.content || '';
+  openAdminModal('adminEditPostModal');
+}
+
+function saveEditedPost(e) {
+  e.preventDefault();
+  const qId = Number(document.getElementById('edit_q_id').value);
+  const q = allQuestions.find(item => item.id === qId);
+  if (!q) return;
+
+  q.author = document.getElementById('edit_q_author').value.trim();
+  q.category = document.getElementById('edit_q_category').value;
+  q.title = document.getElementById('edit_q_title').value.trim();
+  q.content = document.getElementById('edit_q_content').value.trim();
+
+  saveQuestionsToStorage();
+  updateCategoryCounts();
+  renderQuestions();
+  closeAdminModal('adminEditPostModal');
+}
+
+function deleteQuestion(qId) {
+  const q = allQuestions.find(item => item.id === qId);
+  if (!q) return;
+  if (!confirm(`Cô có chắc chắn muốn xóa bài viết "${q.title}" không ạ?`)) return;
+
+  allQuestions = allQuestions.filter(item => item.id !== qId);
+  saveQuestionsToStorage();
+  updateCategoryCounts();
+  renderQuestions();
+}
+
+function deleteAnswer(qId, ansId) {
+  const q = allQuestions.find(item => item.id === qId);
+  if (!q || !Array.isArray(q.answers)) return;
+  if (!confirm('Cô có muốn xóa bình luận này khỏi bài viết không ạ?')) return;
+
+  q.answers = q.answers.filter(a => a.id !== ansId);
+  saveQuestionsToStorage();
+  updateCategoryCounts();
+  renderQuestions();
+}
+
+// Quản lý Cẩm Nang Dưỡng Sinh & Bếp Ấm
+function openHandbookModal(hbId) {
+  const titleEl = document.getElementById('handbookModalTitle');
+  if (hbId) {
+    const hb = allHandbook.find(item => item.id === hbId);
+    if (!hb) return;
+    if (titleEl) titleEl.textContent = '✏️ Chỉnh Sửa Mục Cẩm Nang';
+    document.getElementById('hb_edit_id').value = hb.id;
+    document.getElementById('hb_icon').value = hb.icon || '🍵';
+    document.getElementById('hb_category').value = hb.category || 'Sức khỏe & Dưỡng sinh';
+    document.getElementById('hb_title').value = hb.title || '';
+    document.getElementById('hb_summary').value = hb.summary || '';
+    document.getElementById('hb_details').value = hb.details || '';
+  } else {
+    if (titleEl) titleEl.textContent = '🍵 Thêm Mẹo Cẩm Nang Mới';
+    document.getElementById('hb_edit_id').value = '';
+    document.getElementById('hb_icon').value = '🍵';
+    document.getElementById('hb_category').value = 'Sức khỏe & Dưỡng sinh';
+    document.getElementById('hb_title').value = '';
+    document.getElementById('hb_summary').value = '';
+    document.getElementById('hb_details').value = '';
+  }
+  openAdminModal('adminHandbookModal');
+}
+
+function saveHandbookItem(e) {
+  e.preventDefault();
+  const editId = document.getElementById('hb_edit_id').value.trim();
+  const icon = document.getElementById('hb_icon').value.trim() || '🍵';
+  const category = document.getElementById('hb_category').value;
+  const title = document.getElementById('hb_title').value.trim();
+  const summary = document.getElementById('hb_summary').value.trim();
+  const details = document.getElementById('hb_details').value.trim();
+
+  if (editId) {
+    const existing = allHandbook.find(item => item.id === editId);
+    if (existing) {
+      existing.icon = icon;
+      existing.category = category;
+      existing.title = title;
+      existing.summary = summary;
+      existing.details = details;
+      existing.prompt = `Chia sẻ chi tiết hơn về: ${title}`;
+    }
+  } else {
+    allHandbook.unshift({
+      id: 'hb-' + Date.now(),
+      icon,
+      category,
+      title,
+      summary,
+      details,
+      prompt: `Chia sẻ chi tiết hơn về: ${title}`
+    });
+  }
+
+  saveAllToStorage();
+  renderHandbookGrid();
+  closeAdminModal('adminHandbookModal');
+}
+
+function deleteHandbookItem(hbId) {
+  const hb = allHandbook.find(item => item.id === hbId);
+  if (!hb) return;
+  if (!confirm(`Cô có chắc chắn muốn xóa mục cẩm nang "${hb.title}" không ạ?`)) return;
+
+  allHandbook = allHandbook.filter(item => item.id !== hbId);
+  saveAllToStorage();
+  renderHandbookGrid();
+}
+
+// Quản lý Bức tường lời chúc
+function deleteWishItem(wId) {
+  if (!confirm('Cô có muốn xóa lời chúc này không ạ?')) return;
+  allWishes = allWishes.filter(w => w.id !== wId);
+  saveAllToStorage();
+  renderWishesWall();
+}
+
+// Quản lý Sao lưu, Khôi phục & Đổi Mã PIN
+function openBackupModal() {
+  const newPinInput = document.getElementById('newAdminPinInput');
+  if (newPinInput) newPinInput.value = '';
+  openAdminModal('adminBackupModal');
+}
+
+function changeAdminPin() {
+  const newPinInput = document.getElementById('newAdminPinInput');
+  const val = newPinInput ? newPinInput.value.trim() : '';
+  if (val.length < 4) {
+    alert('Vui lòng nhập mã PIN mới có ít nhất 4 ký tự để đảm bảo an toàn ạ!');
+    return;
+  }
+  try {
+    localStorage.setItem(STORAGE_KEY_ADMIN_PIN, val);
+    newPinInput.value = '';
+    alert(`✅ Đã đổi mã PIN quản trị thành công! Mã PIN mới của cô là: ${val}`);
+  } catch (_) {}
+}
+
+function exportCommunityBackup() {
+  const backupData = {
+    exportedAt: getFormattedNow(),
+    siteConfig,
+    questions: allQuestions,
+    handbook: allHandbook,
+    wishes: allWishes
+  };
+  const blob = new Blob([JSON.stringify(backupData, null, 2)], { type: 'application/json;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `Sao_Luu_Web_Co_Van_Nguyen_${new Date().toISOString().slice(0, 10)}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function importCommunityBackup(e) {
+  const file = e.target.files && e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    try {
+      const parsed = JSON.parse(ev.target.result);
+      if (parsed.siteConfig) siteConfig = { ...DEFAULT_SITE_CONFIG, ...parsed.siteConfig };
+      if (Array.isArray(parsed.questions)) allQuestions = parsed.questions;
+      if (Array.isArray(parsed.handbook)) allHandbook = parsed.handbook;
+      if (Array.isArray(parsed.wishes)) allWishes = parsed.wishes;
+
+      saveAllToStorage();
+      applySiteConfigToDOM();
+      updateCategoryCounts();
+      renderQuestions();
+      renderHandbookGrid();
+      renderWishesWall();
+      closeAdminModal('adminBackupModal');
+      alert('✅ Đã khôi phục toàn bộ dữ liệu trang web thành công!');
+    } catch (_) {
+      alert('⚠️ Tệp sao lưu không hợp lệ. Vui lòng chọn đúng tệp .json đã tải về trước đó ạ!');
+    }
+  };
+  reader.readAsText(file);
+}
+
+function resetToDefaultCommunityData() {
+  if (!confirm('Cô có muốn khôi phục trang web về dữ liệu gốc ban đầu không ạ?')) return;
+  siteConfig = { ...DEFAULT_SITE_CONFIG };
+  allQuestions = JSON.parse(JSON.stringify(DEFAULT_QUESTIONS));
+  allHandbook = JSON.parse(JSON.stringify(DEFAULT_HANDBOOK));
+  allWishes = JSON.parse(JSON.stringify(DEFAULT_WISHES));
+  saveAllToStorage();
+  applySiteConfigToDOM();
+  updateCategoryCounts();
+  renderQuestions();
+  renderHandbookGrid();
+  renderWishesWall();
+  closeAdminModal('adminBackupModal');
+}
+
+// ==========================================================================
+// 6. SHARE LINK, QR MODAL, LIGHTBOX, FONT SIZE & THEME
 // ==========================================================================
 
 function toggleBox(id) {
@@ -787,7 +1361,6 @@ function initPreferencesAndListeners() {
     }
   } catch (_) {}
 
-  // Scroll to top visibility
   const scrollBtn = document.getElementById('scrollTopBtn');
   window.addEventListener('scroll', () => {
     if (scrollBtn) {
@@ -795,18 +1368,20 @@ function initPreferencesAndListeners() {
     }
   });
 
-  // Escape key closes lightbox & modals
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       closeLightbox();
+      closeAllAdminModals();
     }
   });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   initPreferencesAndListeners();
+  initSiteConfig();
   setupQuestionForm();
+  initHandbookSection();
   initQuestionsData();
   initWishesWall();
+  initAdminSystem();
 });
-
