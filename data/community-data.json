@@ -1,0 +1,202 @@
+{
+  "communityInfo": {
+    "name": "Cộng Đồng Sống Vui Khỏe & Bếp Ấm",
+    "tagline": "Nơi giao lưu, hỏi đáp & sẻ chia kinh nghiệm Sức khỏe - Nấu ăn - Mẹo vặt gia đình",
+    "footerTitle": "Trang Web Cộng Đồng Sẻ Chia Yêu Thương - Quản trị viên: Cô Vân Nguyễn",
+    "adminName": "Cô Vân Nguyễn",
+    "adminRole": "Quản trị viên Sáng lập",
+    "sourceUrl": "https://roads-fixes-delaware-wallet.trycloudflare.com",
+    "disclaimer": "Lưu ý: Các chia sẻ về sức khỏe và dinh dưỡng trên trang mang tính chất tham khảo kinh nghiệm sống lành mạnh trong cộng đồng, không thay thế cho chẩn đoán của bác sĩ."
+  },
+  "questions": [
+    {
+      "id": 5,
+      "author": "Cô Vân Nguyễn",
+      "author_role": "Quản trị viên",
+      "category": "Sức khỏe & Dưỡng sinh",
+      "title": "Phòng tránh bệnh cảm mùa này",
+      "content": "Cách Phòng tránh bệnh cảm mùa này",
+      "likes": 15,
+      "created_at": "11:08 - 20/10/2026",
+      "media_url": "",
+      "media_type": "",
+      "answers": [
+        {
+          "id": 6,
+          "question_id": 5,
+          "author": "🌿 Ban Tư Vấn Sống Vui Khỏe",
+          "is_auto_helper": true,
+          "content": "🍵 Chia sẻ dưỡng sinh lành mạnh: Duy trì uống nước ấm buổi sáng, kết hợp thảo dược tự nhiên (như trà gừng tươi, sả, mật ong ấm) và vận động nhẹ nhàng 15-20 phút giúp khí huyết lưu thông, giữ ấm vùng cổ - bàn chân và tăng cường sức đề kháng rất tốt ạ!",
+          "created_at": "11:08 - 20/10/2026"
+        },
+        {
+          "id": 7,
+          "question_id": 5,
+          "author": "Cô Vân Nguyễn",
+          "content": "Cảm ơn con",
+          "created_at": "11:10 - 20/10/2026"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "author": "Cô Vân Nguyễn",
+      "author_role": "Quản trị viên",
+      "category": "Sức khỏe & Dưỡng sinh",
+      "title": "Lời chúc",
+      "content": "Bạn hãy gửi lời chúc yêu thương đến tất cả phụ nữ Việt Nam trong ngày 20/10 nhé",
+      "likes": 28,
+      "created_at": "07:31 - 20/10/2026",
+      "media_url": "",
+      "media_type": "",
+      "answers": [
+        {
+          "id": 4,
+          "question_id": 4,
+          "author": "🌿 Ban Tư Vấn Sống Vui Khỏe",
+          "is_auto_helper": true,
+          "content": "💐 Dạ con chào Cô Vân Nguyễn ạ! Hưởng ứng lời kêu gọi của cô nhân ngày Phụ nữ Việt Nam 20/10, con xin kính chúc Cô và tất cả những người phụ nữ Việt Nam luôn dồi dào sức khỏe, bình an, trẻ trung và ngập tràn niềm vui bên gia đình, học trò và những người thân yêu nhất! ❤️🌹",
+          "created_at": "07:35 - 20/10/2026"
+        },
+        {
+          "id": 5,
+          "question_id": 4,
+          "author": "Cô Thanh Mai (Thành viên)",
+          "content": "🌸 Thay mặt các thành viên Cộng Đồng Sống Vui Khỏe & Bếp Ấm, xin gửi ngàn lời chúc tốt đẹp nhất đến Cô Vân Nguyễn cùng các bà, các mẹ, các chị em một ngày 20/10 thật ấm áp và rạng rỡ hoa tươi!",
+          "created_at": "07:35 - 20/10/2026"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "author": "Chị Thu Hà",
+      "category": "Gia đình & Con cháu",
+      "title": "Làm sao để rèn cho các bé tiểu học thói quen tự giác đọc sách 30 phút mỗi tối?",
+      "content": "Chào các cô và các mẹ! Bé nhà mình năm nay học lớp 5, buổi tối hay thích xem tivi. Mọi người có cách nào nhẹ nhàng khích lệ con yêu thích đọc sách không ạ?",
+      "likes": 12,
+      "created_at": "07:28 - 20/10/2026",
+      "media_url": "",
+      "media_type": "",
+      "answers": [
+        {
+          "id": 3,
+          "question_id": 3,
+          "author": "Cô Bích Vân",
+          "content": "Mẹ hãy dành 15-20 phút ngồi đọc cùng con và đố vui nhẹ nhàng về câu chuyện vừa đọc nhé. Khi người lớn đồng hành, các con sẽ hào hứng hơn rất nhiều!",
+          "created_at": "07:28 - 20/10/2026"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "author": "Bác Minh Hòa",
+      "category": "Nấu ăn & Bếp ấm",
+      "title": "Mẹo nấu canh rau củ ngọt thanh tự nhiên cho bữa cơm gia đình cuối tuần?",
+      "content": "Cuối tuần các con các cháu sum vầy, mình muốn hạn chế dùng bột ngọt mà vẫn có nồi canh ngọt thanh. Các cô các chị có bí quyết hầm rau củ gì hay chia sẻ nhé!",
+      "likes": 14,
+      "created_at": "07:28 - 20/10/2026",
+      "media_url": "",
+      "media_type": "",
+      "answers": [
+        {
+          "id": 2,
+          "question_id": 2,
+          "author": "Cô Ngọc Lan",
+          "content": "Bí quyết của bếp nhà mình là dùng củ cải trắng, bắp ngọt và vài quả táo đỏ hầm lấy nước dùng trước 20 phút. Nước canh ngọt tự nhiên các cháu mê tít!",
+          "created_at": "07:28 - 20/10/2026"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "author": "Cô Bích Vân (Quản trị viên)",
+      "category": "Sức khỏe & Dưỡng sinh",
+      "title": "Thức uống ấm bụng buổi sáng với tinh bột nghệ và mật ong rừng sao cho đúng cách?",
+      "content": "Chào cả nhà! Mỗi sáng thức dậy, việc uống một cốc nước ấm pha tinh bột nghệ cùng mật ong rất tốt cho dạ dày. Mọi người thường pha với nước ấm khoảng bao nhiêu độ ạ?",
+      "likes": 18,
+      "created_at": "07:28 - 20/10/2026",
+      "media_url": "",
+      "media_type": "",
+      "answers": [
+        {
+          "id": 1,
+          "question_id": 1,
+          "author": "Cô Thanh Mai",
+          "content": "Mình thường pha với nước ấm khoảng 40 - 45 độ C, khuấy đều tinh bột nghệ trước rồi mới cho 1 thìa mật ong rừng vào uống trước bữa sáng 20 phút, êm bụng lắm ạ!",
+          "created_at": "07:28 - 20/10/2026"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "author": "Cô Hương Giang",
+      "category": "Mẹo vặt cuộc sống",
+      "title": "Mẹo khử mùi thức ăn và giữ gian bếp luôn thơm tho bằng nguyên liệu tự nhiên?",
+      "content": "Sau khi chiên cá hoặc nấu các món đậm gia vị, gian bếp thường lưu mùi khá lâu. Các cô các chị trong cộng đồng mình thường dùng mẹo tự nhiên nào để bếp luôn thơm dịu và ấm cúng ạ?",
+      "likes": 16,
+      "created_at": "08:15 - 20/10/2026",
+      "media_url": "",
+      "media_type": "",
+      "answers": [
+        {
+          "id": 8,
+          "question_id": 6,
+          "author": "Cô Vân Nguyễn",
+          "content": "Kinh nghiệm của bếp nhà mình là đun sôi một nồi nước nhỏ gồm vỏ bưởi hoặc vỏ cam/chanh kết hợp với 2 nhánh sả đập dập và vài lát gừng trong 10 phút. Hương tinh dầu tự nhiên vừa khử sạch mùi dầu mỡ, vừa giúp không khí trong nhà ấm áp, thư thái lắm nhé!",
+          "created_at": "08:22 - 20/10/2026"
+        }
+      ]
+    }
+  ],
+  "handbook": [
+    {
+      "id": "hb-1",
+      "category": "Sức khỏe & Dưỡng sinh",
+      "icon": "🍵",
+      "title": "Pha Tinh Bột Nghệ & Mật Ong Đúng Chuẩn",
+      "summary": "Bảo vệ niêm mạc dạ dày, kích thích tiêu hóa và làm đẹp da mỗi sáng.",
+      "details": "Dùng 150ml - 200ml nước ấm đúng chuẩn 40°C - 45°C (không dùng nước sôi trên 60°C vì sẽ làm vón cục tinh bột nghệ và mất enzym quý trong mật ong). Cho 2 thìa cà phê tinh bột nghệ vào khuấy tan trước, sau đó thêm 1 thìa mật ong rừng. Uống trước bữa ăn sáng 20 - 30 phút."
+    },
+    {
+      "id": "hb-2",
+      "category": "Sức khỏe & Dưỡng sinh",
+      "icon": "🧣",
+      "title": "5 Bí Quyết Phòng Cảm Lạnh Khi Giao Mùa",
+      "summary": "Giữ ấm cơ thể, tăng sức đề kháng tự nhiên cho cả gia đình.",
+      "details": "1. Uống 1 cốc nước ấm ngay khi thức dậy để kích hoạt tuần hoàn. 2. Súc miệng nước muối ấm sáng và tối. 3. Bổ sung trà gừng, táo đỏ, kỷ tử hoặc nước cam ấm. 4. Giữ ấm vùng cổ, ngực và lòng bàn chân khi sáng sớm/đêm muộn. 5. Vận động dưỡng sinh nhẹ nhàng 15-20 phút mỗi ngày."
+    },
+    {
+      "id": "hb-3",
+      "category": "Nấu ăn & Bếp ấm",
+      "icon": "🍲",
+      "title": "Nước Dùng Rau Củ Ngọt Thanh Không Cần Mì Chính",
+      "summary": "Công thức hầm nước canh thanh mát, bổ dưỡng cho bữa cơm sum vầy.",
+      "details": "Kết hợp 1 củ cải trắng cắt khúc, 1 trái bắp Mỹ (ngô ngọt), 5-6 quả táo đỏ và 1 khúc mía nhỏ hoặc hành tây, hầm lửa nhỏ trong 20-25 phút. Nước dùng tiết ra vị ngọt thanh tự nhiên, giàu vitamin và khoáng chất, rất tốt cho người lớn tuổi và trẻ nhỏ."
+    },
+    {
+      "id": "hb-4",
+      "category": "Mẹo vặt cuộc sống",
+      "icon": "🌱",
+      "title": "Khử Mùi Nhà Bếp & Thanh Lọc Không Khí Tự Nhiên",
+      "summary": "Tận dụng vỏ cam, bưởi, sả và gừng tươi giúp căn bếp luôn thơm mát.",
+      "details": "Đừng vội bỏ vỏ cam, quýt hay vỏ bưởi! Hãy cho vào nồi nhỏ cùng 2 cây sả đập dập, vài lát gừng tươi và 1 nhánh quế, đun sôi mở vung 10 phút trên lửa nhỏ. Hơi nước mang theo tinh dầu thảo mộc sẽ khử sạch mùi tanh cá thịt và xua đuổi muỗi hiệu quả."
+    },
+    {
+      "id": "hb-5",
+      "category": "Gia đình & Con cháu",
+      "icon": "📚",
+      "title": "Đồng Hành Cùng Con Cháu Đọc Sách 20 Phút Mỗi Tối",
+      "summary": "Nuôi dưỡng tâm hồn trẻ thơ và gắn kết tình cảm các thế hệ.",
+      "details": "Thay vì nhắc nhở con cháu tắt tivi một cách nghiêm khắc, ông bà và cha mẹ hãy tạo 'Giờ đọc sách gia đình' từ 20h30 - 20h50. Cùng ngồi đọc chung một mẩu chuyện ngắn và đố vui nhẹ nhàng, khen ngợi khi trẻ nhớ được bài học hay trong truyện."
+    },
+    {
+      "id": "hb-6",
+      "category": "Nấu ăn & Bếp ấm",
+      "icon": "🥬",
+      "title": "Mẹo Luộc Rau Xanh Mướt & Giữ Trọn Vitamin",
+      "summary": "Bí quyết đơn giản để đĩa rau luộc trên mâm cơm gia đình luôn xanh giòn.",
+      "details": "Đợi nước thật sôi mới cho một chút muối hạt và vài giọt dầu ăn (hoặc dầu mè) vào nồi. Cho rau vào luộc với lửa lớn và mở vung. Khi rau vừa chín tới, vớt ra đĩa rộng có thoáng khí, không đậy kín nắp để rau giữ màu xanh ngọc đẹp mắt."
+    }
+  ]
+}
+

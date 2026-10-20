@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="vi" data-fontsize="normal" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cộng Đồng Sống Vui Khỏe &amp; Bếp Ấm - Quản trị viên: Cô Vân Nguyễn</title>
+  <meta name="description" content="Trang Web Cộng Đồng Sẻ Chia Yêu Thương - Quản trị viên: Cô Vân Nguyễn. Nơi giao lưu, hỏi đáp &amp; sẻ chia kinh nghiệm Sức khỏe &amp; Dưỡng sinh, Nấu ăn &amp; Bếp ấm, Mẹo vặt cuộc sống, Gia đình &amp; Con cháu.">
+  <meta name="keywords" content="Cộng Đồng Sống Vui Khỏe Bếp Ấm, Cô Vân Nguyễn, dưỡng sinh lành mạnh, mẹo nấu ăn bếp ấm, mẹo vặt gia đình, trang web cộng đồng sẻ chia yêu thương">
+
+  <!-- Canonical & Open Graph -->
+  <link rel="canonical" href="https://songvuikhoe.life/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://songvuikhoe.life/">
+  <meta property="og:title" content="🌿 Cộng Đồng Sống Vui Khỏe &amp; Bếp Ấm - Cô Vân Nguyễn">
+  <meta property="og:description" content="Nơi giao lưu, hỏi đáp &amp; sẻ chia kinh nghiệm Sức khỏe - Nấu ăn - Mẹo vặt gia đình. Trang Web Cộng Đồng Sẻ Chia Yêu Thương - Quản trị viên: Cô Vân Nguyễn.">
+  <meta property="og:image" content="https://songvuikhoe.life/assets/img/co-van-nguyen.jpg">
+  <meta property="og:locale" content="vi_VN">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌿</text></svg>">
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://songvuikhoe.life/#organization",
+        "name": "Cộng Đồng Sống Vui Khỏe & Bếp Ấm",
+        "alternateName": "Trang Web Cộng Đồng Sẻ Chia Yêu Thương - Cô Vân Nguyễn",
+        "url": "https://songvuikhoe.life/",
+        "logo": "https://songvuikhoe.life/assets/img/co-van-nguyen.jpg",
+        "description": "Nơi giao lưu, hỏi đáp & sẻ chia kinh nghiệm Sức khỏe - Nấu ăn - Mẹo vặt gia đình.",
+        "founder": {
+          "@type": "Person",
+          "name": "Cô Vân Nguyễn",
+          "jobTitle": "Quản trị viên Sáng lập",
+          "image": "https://songvuikhoe.life/assets/img/co-van-nguyen.jpg"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- 1. Banner Chào Mừng 20/10 -->
+  <div class="banner-celebration">
+    <span>💐 Chào mừng Ngày Phụ nữ Việt Nam 20/10! Kính chúc <strong>Cô Vân Nguyễn</strong> và một nửa thế giới luôn mạnh khỏe, rạng rỡ và ngập tràn hạnh phúc! ❤️</span>
+    <a href="#goc-loi-chuc" class="banner-wish-trigger">💌 Gửi Lời Chúc Ngay</a>
+  </div>
+
+  <!-- 2. Thanh Công Cụ Chia Sẻ Zalo & Mã QR -->
+  <div class="share-bar">
+    <span class="share-label">🌐 Link gửi Zalo:</span>
+    <span id="tunnelUrlText" class="share-link-box">https://songvuikhoe.life</span>
+    <button type="button" class="btn-action" id="btnCopyShareLink" onclick="copyShareLink()">📋 Sao Chép Link</button>
+    <button type="button" class="btn-action btn-qr" onclick="toggleBox('qrModal')">📱 Mở Mã QR Quét Nhanh</button>
+    <button type="button" class="btn-action btn-cloud" onclick="toggleBox('cloudModal')">☁️ Chế Độ 24/24 Khi Tắt Máy</button>
+  </div>
+
+  <!-- Khung Modal Mã QR -->
+  <div id="qrModal" class="info-modal-drawer" style="text-align: center;">
+    <h3 style="margin: 0 0 6px 0; color: var(--primary-dark);">📱 MÃ QR TRANG WEB CỘNG ĐỒNG CỦA CÔ VÂN NGUYỄN</h3>
+    <p style="margin: 0 0 10px 0; font-size: 0.92rem; color: var(--text-muted);">Mở Zalo hoặc Camera điện thoại hướng vào mã QR dưới đây để vào thẳng trang web:</p>
+    <picture>
+      <source srcset="assets/img/qr_code.webp" type="image/webp">
+      <img id="qrImage" class="qr-img" src="assets/img/qr_code.png" alt="Mã QR Cộng Đồng Cô Vân Nguyễn" width="220" height="220" loading="lazy">
+    </picture>
+    <div style="margin-top: 12px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+      <a href="assets/img/qr_code.png" download="Ma_QR_Web_Cong_Dong_Co_Van.png" class="btn-action btn-qr">📥 Tải Ảnh Mã QR Về Gửi Zalo</a>
+      <button type="button" class="btn-action" style="background: #64748b;" onclick="toggleBox('qrModal')">Ẩn khung QR</button>
+    </div>
+    <small style="display: block; margin-top: 10px; color: var(--sky-main); font-weight: 600;">
+      (Ảnh Mã QR đã được tối ưu sắc nét để Cô Vân gửi qua nhóm Zalo cho các thành viên quét nhanh ạ!)
+    </small>
+  </div>
+
+  <!-- Khung Modal Chế Độ 24/24 -->
+  <div id="cloudModal" class="info-modal-drawer">
+    <h3 style="margin: 0 0 12px 0; color: var(--purple-main); text-align: center;">☁️ CƠ CHẾ CHẠY WEB 24/24 CHO CÔ VÂN NGUYỄN</h3>
+    <p style="margin: 8px 0;">
+      ✅ <strong>1. Chế độ Chạy Ngầm 24/24 Không Cửa Sổ Đen (Đã kích hoạt sẵn):</strong><br>
+      Đã tích hợp nút <strong>Chay_Web_Ngam_247_Cua_Co.vbs</strong> ngoài màn hình Desktop và bật chế độ giữ mạng khi tắt màn hình. Cô có thể đóng hết cửa sổ đen và tắt màn hình nghỉ ngơi mà web vẫn hoạt động 24/24!
+    </p>
+    <p style="margin: 12px 0;">
+      ✅ <strong>2. Hoạt động Độc Lập &amp; Đám Mây Miễn Phí (Khi cô rút điện / tắt nguồn máy tính hoàn toàn):</strong><br>
+      Ứng dụng web hiện đại này đã được tích hợp bộ nhớ tri thức thông minh 3 lớp và lưu trữ trực tiếp trên trình duyệt, đồng thời đồng bộ tự động với đường truyền <code>https://roads-fixes-delaware-wallet.trycloudflare.com</code> để phục vụ các thành viên mọi lúc mọi nơi!
+    </p>
+    <div style="text-align: center; margin-top: 14px;">
+      <button type="button" class="btn-action" style="background: #64748b;" onclick="toggleBox('cloudModal')">Đã hiểu &amp; Đóng bảng</button>
+    </div>
+  </div>
+
+  <!-- 3. Thanh Điều Hướng Chính (Sticky Header) -->
+  <header class="site-header">
+    <div class="container-wide nav-inner">
+      <a href="#top" class="brand-identity">
+        <picture>
+          <source srcset="assets/img/co-van-nguyen.webp" type="image/webp">
+          <img src="assets/img/co-van-nguyen.jpg" alt="Cô Vân Nguyễn" class="brand-avatar-mini" width="48" height="48">
+        </picture>
+        <div class="brand-text-wrap">
+          <span class="brand-main-name">🌿 SỐNG VUI KHỎE &amp; BẾP ẤM</span>
+          <span class="brand-sub-name">Quản trị viên: Cô Vân Nguyễn</span>
+        </div>
+      </a>
+
+      <nav aria-label="Điều hướng chính">
+        <ul class="nav-links">
+          <li><a href="#dien-dan" class="nav-link active">💬 Diễn Đàn Hỏi Đáp</a></li>
+          <li><a href="#cam-nang" class="nav-link">🍵 Cẩm Nang Dưỡng Sinh</a></li>
+          <li><a href="#goc-loi-chuc" class="nav-link">💐 Góc Lời Chúc</a></li>
+          <li><a href="#ve-co-van" class="nav-link">🌸 Cô Vân Nguyễn</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-utilities">
+        <div class="font-Controls" title="Điều chỉnh cỡ chữ dễ đọc">
+          <button type="button" class="font-btn active" data-size="normal" onclick="setFontSize('normal', this)">A</button>
+          <button type="button" class="font-btn" data-size="large" onclick="setFontSize('large', this)">A+</button>
+          <button type="button" class="font-btn" data-size="xlarge" onclick="setFontSize('xlarge', this)">A++</button>
+        </div>
+        <button type="button" class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Chuyển chế độ Sáng / Tối" aria-label="Chuyển giao diện Sáng Tối">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 4. Hero Section & Góc Quản Trị Viên Cô Vân Nguyễn -->
+  <section class="hero-section" id="top">
+    <div class="container-wide hero-grid">
+      <div class="hero-content">
+        <div class="hero-badge-pill">
+          <span>🌸 Trang Web Cộng Đồng Sẻ Chia Yêu Thương</span>
+        </div>
+        <h1 class="hero-title">
+          CỘNG ĐỒNG SỐNG VUI KHỎE <span>&amp; BẾP ẤM</span>
+        </h1>
+        <p class="hero-subtitle">
+          Nơi giao lưu, hỏi đáp &amp; sẻ chia kinh nghiệm <strong>Sức khỏe &amp; Dưỡng sinh</strong> – <strong>Nấu ăn &amp; Bếp ấm</strong> – <strong>Mẹo vặt cuộc sống</strong> – <strong>Gia đình &amp; Con cháu</strong>.
+        </p>
+
+        <blockquote class="hero-quote-box">
+          "Sức khỏe là vàng, bếp ấm là nhà. Mong rằng mỗi ngày ghé thăm trang web, các bà, các mẹ, các chị em và mỗi gia đình đều tìm thấy một mẹo hay, một món ăn lành mạnh và thật nhiều niềm vui bình an."
+          <span class="hero-quote-author">— Cô Vân Nguyễn (Quản trị viên Sáng lập)</span>
+        </blockquote>
+
+        <div class="hero-cta-group">
+          <a href="#dien-dan" class="btn-hero-primary" onclick="setTimeout(() => document.getElementById('q_title').focus(), 300)">
+            ✍️ Đăng Bài / Đặt Câu Hỏi Ngay
+          </a>
+          <button type="button" class="btn-hero-secondary" onclick="window.CoVanAssistant && window.CoVanAssistant.openWithPrompt('Chào Bếp Ấm Cô Vân! Hãy gợi ý giúp mình thực đơn dưỡng sinh và mẹo giữ gìn sức khỏe mùa này nhé!')">
+            💬 Trò Chuyện Cùng Bếp Ấm Cô Vân
+          </button>
+        </div>
+
+        <div class="hero-stats-row">
+          <div class="hero-stat-item">
+            <span class="hero-stat-num" id="statTotalPosts">15+</span>
+            <span class="hero-stat-label">Bài viết &amp; Chia sẻ tâm huyết</span>
+          </div>
+          <div class="hero-stat-item">
+            <span class="hero-stat-num">4 Chuyên Mục</span>
+            <span class="hero-stat-label">Dưỡng sinh • Bếp ấm • Mẹo hay • Gia đình</span>
+          </div>
+          <div class="hero-stat-item">
+            <span class="hero-stat-num">24/7</span>
+            <span class="hero-stat-label">Tư vấn &amp; Giải đáp tự động tức thì</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Thẻ Chân Dung Quản Trị Viên Cô Vân Nguyễn -->
+      <aside class="admin-showcase-card" id="ve-co-van" aria-label="Quản trị viên Cô Vân Nguyễn">
+        <div class="admin-photo-frame" onclick="openLightbox('assets/img/co-van-nguyen.jpg', 'Cô Vân Nguyễn - Quản trị viên Sáng lập Cộng Đồng Sống Vui Khỏe & Bếp Ấm')">
+          <picture>
+            <source srcset="assets/img/co-van-nguyen.webp" type="image/webp">
+            <img src="assets/img/co-van-nguyen.jpg" alt="Cô Vân Nguyễn - Quản trị viên Cộng Đồng Sống Vui Khỏe & Bếp Ấm" width="433" height="340">
+          </picture>
+          <span class="admin-photo-zoom-hint">🔍 Chạm để phóng to</span>
+        </div>
+        <span class="admin-badge-crown">👑 Quản Trị Viên Sáng Lập</span>
+        <h2 class="admin-name-title">Cô Vân Nguyễn</h2>
+        <p class="admin-role-desc">
+          Người truyền lửa tận tâm của <strong>Cộng Đồng Sống Vui Khỏe &amp; Bếp Ấm</strong> — Kết nối yêu thương, lan tỏa lối sống dưỡng sinh tự nhiên và giữ lửa hạnh phúc gia đình Việt.
+        </p>
+        <div class="admin-tags-row">
+          <span class="admin-tag">🍵 Dưỡng Sinh Tự Nhiên</span>
+          <span class="admin-tag">🍲 Bếp Ấm Gia Đình</span>
+          <span class="admin-tag">❤️ Sẻ Chia Yêu Thương</span>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- 5. Khu Vực Diễn Đàn Hỏi Đáp & Chia Sẻ Cộng Đồng -->
+  <main class="forum-section" id="dien-dan">
+    <div class="container-wide">
+      <div class="section-header-block">
+        <span class="section-kicker">🌿 KHÔNG GIAN GIAO LƯU MỞ</span>
+        <h2 class="section-heading">Diễn Đàn Hỏi Đáp &amp; Sẻ Chia Kinh Nghiệm</h2>
+        <p class="section-sub">
+          Mỗi câu hỏi hay bài đăng của Cô, Bác, Anh, Chị đều được <strong>Ban Tư Vấn Bếp Ấm Cô Vân</strong> và các thành viên phản hồi tận tình ngay lập tức.
+        </p>
+      </div>
+
+      <div class="forum-grid">
+        <!-- Cột Trái: Form Đăng Bài / Đặt Câu Hỏi -->
+        <aside class="panel-card sticky-sidebar">
+          <h2 class="panel-title">✍️ Đăng Bài / Đặt Câu Hỏi</h2>
+          <form id="questionForm" enctype="multipart/form-data">
+            <div class="form-group">
+              <label class="form-label" for="q_author">Tên của cô/bác/anh/chị:</label>
+              <input type="text" id="q_author" class="form-control" value="Cô Vân Nguyễn" required>
+              <div class="quick-author-chips">
+                <button type="button" class="author-chip" onclick="selectQuickAuthor('Cô Vân Nguyễn')">👑 Cô Vân Nguyễn</button>
+                <button type="button" class="author-chip" onclick="selectQuickAuthor('Cô Thanh Mai')">Cô Thanh Mai</button>
+                <button type="button" class="author-chip" onclick="selectQuickAuthor('Cô Ngọc Lan')">Cô Ngọc Lan</button>
+                <button type="button" class="author-chip" onclick="selectQuickAuthor('Bác Minh Hòa')">Bác Minh Hòa</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="q_category">Chuyên mục quan tâm:</label>
+              <select id="q_category" class="form-control">
+                <option value="Sức khỏe & Dưỡng sinh">🍵 Sức khỏe &amp; Dưỡng sinh</option>
+                <option value="Nấu ăn & Bếp ấm">🍲 Nấu ăn &amp; Bếp ấm</option>
+                <option value="Mẹo vặt cuộc sống">🌱 Mẹo vặt cuộc sống</option>
+                <option value="Gia đình & Con cháu">👨‍👩‍👧‍👦 Gia đình &amp; Con cháu</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="q_title">Tiêu đề bài viết / câu hỏi:</label>
+              <input type="text" id="q_title" class="form-control" placeholder="VD: Món canh dưỡng sinh ngọt thanh..." required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="q_content">Nội dung chi tiết:</label>
+              <textarea id="q_content" class="form-control" placeholder="Nhập câu hỏi hoặc chia sẻ kinh nghiệm của cô/bác/anh/chị..." required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="q_media">🖼️ Đính kèm Hình ảnh hoặc Video (nếu có):</label>
+              <input type="file" id="q_media" class="form-control" accept="image/*,video/*">
+              <div id="mediaUploadPreview" class="upload-preview-box">
+                <button type="button" class="btn-remove-media" onclick="clearPendingMedia()" title="Xóa tệp đính kèm">&times;</button>
+                <div id="mediaPreviewContent"></div>
+              </div>
+            </div>
+
+            <label class="auto-reply-option" for="autoReplyCheck">
+              <input type="checkbox" id="autoReplyCheck" checked>
+              <span>✨ Tự động nhận phản hồi tư vấn ngay sau khi đăng bài</span>
+            </label>
+
+            <button type="submit" class="btn-submit-post">
+              📮 Đăng Lên Cộng Đồng
+            </button>
+          </form>
+        </aside>
+
+        <!-- Cột Phải: Bộ Lọc & Danh Sách Bài Viết -->
+        <div>
+          <div class="forum-toolbar">
+            <div class="cat-pills-row">
+              <button type="button" class="cat-btn active" data-cat="ALL" onclick="filterCategory('ALL', this)">
+                🌟 Tất cả <span class="cat-count">6</span>
+              </button>
+              <button type="button" class="cat-btn" data-cat="Sức khỏe & Dưỡng sinh" onclick="filterCategory('Sức khỏe & Dưỡng sinh', this)">
+                🍵 Sức khỏe <span class="cat-count">3</span>
+              </button>
+              <button type="button" class="cat-btn" data-cat="Nấu ăn & Bếp ấm" onclick="filterCategory('Nấu ăn & Bếp ấm', this)">
+                🍲 Nấu ăn <span class="cat-count">1</span>
+              </button>
+              <button type="button" class="cat-btn" data-cat="Mẹo vặt cuộc sống" onclick="filterCategory('Mẹo vặt cuộc sống', this)">
+                🌱 Mẹo vặt <span class="cat-count">1</span>
+              </button>
+              <button type="button" class="cat-btn" data-cat="Gia đình & Con cháu" onclick="filterCategory('Gia đình & Con cháu', this)">
+                👨‍👩‍👧‍👦 Gia đình <span class="cat-count">1</span>
+              </button>
+            </div>
+
+            <div class="search-sort-row">
+              <div class="search-input-wrap">
+                <input type="text" id="searchInput" class="search-box" placeholder="🔍 Tìm kiếm câu hỏi, bí quyết, tên thành viên..." oninput="renderQuestions()">
+              </div>
+              <select id="sortSelect" class="sort-select" aria-label="Sắp xếp bài viết" onchange="changeSortOrder(this.value)">
+                <option value="newest">🕒 Mới nhất trước</option>
+                <option value="likes">❤️ Nhiều yêu thích nhất</option>
+                <option value="answers">💡 Nhiều câu trả lời nhất</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Danh sách câu hỏi và thảo luận -->
+          <div id="questionsList"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 6. Cẩm Nang Dưỡng Sinh & Bếp Ấm Chọn Lọc -->
+  <section class="handbook-section" id="cam-nang">
+    <div class="container-wide">
+      <div class="section-header-block">
+        <span class="section-kicker">🍵 KHO TÀNG KINH NGHIỆM QUÝ</span>
+        <h2 class="section-heading">Cẩm Nang Sống Vui Khỏe &amp; Bếp Ấm Cô Vân</h2>
+        <p class="section-sub">
+          Tổng hợp những bí quyết dưỡng sinh, công thức nấu ăn ngọt lành và mẹo chăm sóc gia đình được yêu thích nhất tại cộng đồng.
+        </p>
+      </div>
+
+      <div class="handbook-grid" id="handbookGrid">
+        <!-- Card 1 -->
+        <article class="hb-card">
+          <div class="hb-icon-wrap">🍯</div>
+          <span class="hb-cat-tag">Sức khỏe &amp; Dưỡng sinh</span>
+          <h3 class="hb-title">Pha Tinh Bột Nghệ &amp; Mật Ong Ấm Bụng Buổi Sáng</h3>
+          <p class="hb-summary">Bảo vệ niêm mạc dạ dày, kích thích tiêu hóa và giúp làn da hồng hào mỗi ngày.</p>
+          <div class="hb-details">
+            Pha với nước ấm đúng chuẩn <strong>40°C - 45°C</strong>. Khuấy đều tinh bột nghệ trước rồi mới cho 1 thìa mật ong rừng vào uống trước bữa sáng 20 phút, cực kỳ êm bụng!
+          </div>
+          <button type="button" class="btn-ask-hb" onclick="window.CoVanAssistant && window.CoVanAssistant.openWithPrompt('Hướng dẫn chi tiết cách pha tinh bột nghệ và mật ong rừng buổi sáng cùng những lưu ý quan trọng?')">
+            💬 Hỏi thêm về thức uống này
+          </button>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="hb-card">
+          <div class="hb-icon-wrap">🍵</div>
+          <span class="hb-cat-tag">Sức khỏe &amp; Dưỡng sinh</span>
+          <h3 class="hb-title">Bí Quyết Phòng Tránh Bệnh Cảm Mùa Giao Mùa</h3>
+          <p class="hb-summary">Tăng cường chính khí và sức đề kháng tự nhiên cho người lớn tuổi và trẻ nhỏ.</p>
+          <div class="hb-details">
+            Duy trì uống nước ấm buổi sáng, kết hợp thảo dược tự nhiên (gừng, sả, táo đỏ) và vận động nhẹ nhàng <strong>15 - 20 phút</strong> giúp khí huyết lưu thông, phòng cảm hiệu quả.
+          </div>
+          <button type="button" class="btn-ask-hb" onclick="window.CoVanAssistant && window.CoVanAssistant.openWithPrompt('Chia sẻ chi tiết cách phòng tránh bệnh cảm mùa giao mùa và các loại trà thảo dược ấm cơ thể?')">
+            💬 Hỏi thêm về cách phòng cảm
+          </button>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="hb-card">
+          <div class="hb-icon-wrap">🍲</div>
+          <span class="hb-cat-tag">Nấu ăn &amp; Bếp ấm</span>
+          <h3 class="hb-title">Hầm Canh Rau Củ Ngọt Thanh Không Cần Bột Ngọt</h3>
+          <p class="hb-summary">Bí quyết cho nồi canh gia đình cuối tuần vừa thanh mát vừa tròn vị tự nhiên.</p>
+          <div class="hb-details">
+            Sử dụng <strong>củ cải trắng, bắp ngọt và vài quả táo đỏ</strong> hầm lấy nước dùng trước 20 phút. Nước canh tiết vị ngọt thanh tự nhiên, các con các cháu đều mê tít!
+          </div>
+          <button type="button" class="btn-ask-hb" onclick="window.CoVanAssistant && window.CoVanAssistant.openWithPrompt('Gợi ý thêm các công thức nấu canh dưỡng sinh ngọt thanh tự nhiên cho bữa cơm gia đình cuối tuần?')">
+            💬 Hỏi thêm công thức nấu canh
+          </button>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="hb-card">
+          <div class="hb-icon-wrap">📚</div>
+          <span class="hb-cat-tag">Gia đình &amp; Con cháu</span>
+          <h3 class="hb-title">Rèn Cho Bé Tiểu Học Tự Giác Đọc Sách 30 Phút Tối</h3>
+          <p class="hb-summary">Phương pháp tâm lý nhẹ nhàng giúp con cháu rời xa màn hình tivi buổi tối.</p>
+          <div class="hb-details">
+            Ông bà, cha mẹ hãy dành <strong>15 - 20 phút ngồi đọc cùng con</strong> và đố vui nhẹ nhàng về câu chuyện vừa đọc. Khi người lớn đồng hành, các bé sẽ hào hứng hơn rất nhiều!
+          </div>
+          <button type="button" class="btn-ask-hb" onclick="window.CoVanAssistant && window.CoVanAssistant.openWithPrompt('Chia sẻ thêm các mẹo hay để ông bà và cha mẹ khích lệ các bé tiểu học yêu thích đọc sách mỗi tối?')">
+            💬 Hỏi thêm mẹo dạy con cháu
+          </button>
+        </article>
+
+        <!-- Card 5 -->
+        <article class="hb-card">
+          <div class="hb-icon-wrap">🌱</div>
+          <span class="hb-cat-tag">Mẹo vặt cuộc sống</span>
+          <h3 class="hb-title">Khử Mùi Gian Bếp Bằng Vỏ Bưởi, Sả &amp; Gừng Tươi</h3>
+          <p class="hb-summary">Giữ căn bếp gia đình luôn thơm dịu tinh dầu thảo mộc tự nhiên, sạch mùi dầu mỡ.</p>
+          <div class="hb-details">
+            Đun sôi nồi nước nhỏ với <strong>vỏ bưởi (hoặc vỏ cam), 2 nhánh sả đập dập và vài lát gừng</strong> trong 10 phút. Hương thơm lan tỏa giúp thư giãn tinh thần và xua muỗi.
+          </div>
+          <button type="button" class="btn-ask-hb" onclick="window.CoVanAssistant && window.CoVanAssistant.openWithPrompt('Cho mình xin thêm các mẹo vặt nhà bếp tự nhiên, an toàn và tiết kiệm cho gia đình?')">
+            💬 Hỏi thêm mẹo vặt nhà bếp
+          </button>
+        </article>
+
+        <!-- Card 6 -->
+        <article class="hb-card">
+          <div class="hb-icon-wrap">🥬</div>
+          <span class="hb-cat-tag">Nấu ăn &amp; Bếp ấm</span>
+          <h3 class="hb-title">Mẹo Luộc Rau Xanh Mướt &amp; Giữ Trọn Dưỡng Chất</h3>
+          <p class="hb-summary">Đĩa rau luộc xanh ngọc, giòn ngọt làm sáng bừng mâm cơm ấm cúng mỗi ngày.</p>
+          <div class="hb-details">
+            Đợi nước thật sôi mới cho một chút muối hạt và vài giọt dầu thực vật vào nồi, luộc lửa lớn mở vung rồi vớt ra đĩa rộng thoáng khí để giữ trọn màu xanh và vitamin.
+          </div>
+          <button type="button" class="btn-ask-hb" onclick="window.CoVanAssistant && window.CoVanAssistant.openWithPrompt('Chia sẻ bí quyết sơ chế và chế biến rau củ giữ trọn vitamin cho gia đình?')">
+            💬 Hỏi thêm bí quyết bếp ấm
+          </button>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Bức Tường Lời Chúc Yêu Thương -->
+  <section class="wishes-section" id="goc-loi-chuc">
+    <div class="container-wide">
+      <div class="wishes-banner-card">
+        <div class="section-header-block" style="margin-bottom: 16px;">
+          <span class="section-kicker" style="background: #ffe4e6; color: #be123c;">💐 LAN TỎA YÊU THƯƠNG</span>
+          <h2 class="section-heading">Bức Tường Lời Chúc Phụ Nữ Việt Nam &amp; Cộng Đồng</h2>
+          <p class="section-sub">
+            Hưởng ứng lời mời của <strong>Cô Vân Nguyễn</strong>, mời các thành viên cùng gửi những lời chúc tốt đẹp nhất đến các Bà, các Mẹ, các Chị Em!
+          </p>
+        </div>
+
+        <form id="wishForm" class="wish-form-row">
+          <input type="text" id="wishSender" class="form-control" placeholder="Tên của bạn..." value="Cô Vân Nguyễn" required>
+          <select id="wishFlower" class="form-control" aria-label="Chọn biểu tượng hoa">
+            <option value="💐">💐 Bó hoa</option>
+            <option value="🌹">🌹 Hoa hồng</option>
+            <option value="🌸">🌸 Hoa đào</option>
+            <option value="🪷">🪷 Hoa sen</option>
+            <option value="🌻">🌻 Hướng dương</option>
+          </select>
+          <input type="text" id="wishText" class="form-control" placeholder="Nhập lời chúc yêu thương của bạn..." required>
+          <div style="display: flex; gap: 8px;">
+            <button type="button" class="btn-action" style="background: #d97706; white-space: nowrap;" onclick="fillSuggestedWish()">✨ Gợi ý</button>
+            <button type="submit" class="btn-action" style="background: #e11d48; white-space: nowrap;">❤️ Gửi Lời Chúc</button>
+          </div>
+        </form>
+
+        <div class="wishes-wall-grid" id="wishesWallGrid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Chân Trang (Footer) -->
+  <footer class="site-footer">
+    <div class="container-wide footer-inner">
+      <div class="footer-brand-title">
+        🌸 Trang Web Cộng Đồng Sẻ Chia Yêu Thương - Quản trị viên: Cô Vân Nguyễn 🌸
+      </div>
+      <p class="footer-disclaimer">
+        Lưu ý: Các chia sẻ về sức khỏe và dinh dưỡng trên trang mang tính chất tham khảo kinh nghiệm sống lành mạnh trong cộng đồng, không thay thế cho chẩn đoán của bác sĩ.
+      </p>
+      <div class="footer-copy">
+        &copy; 2026 Cộng Đồng Sống Vui Khỏe &amp; Bếp Ấm • Xây dựng với tất cả sự trân trọng dành tặng Cô Vân Nguyễn và các thành viên.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Nút Cuộn Lên Đầu Trang -->
+  <button type="button" class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Lên đầu trang" title="Lên đầu trang">↑</button>
+
+  <!-- Khung Phóng To Ảnh (Lightbox Modal) -->
+  <div class="lightbox-overlay" id="lightboxOverlay" onclick="closeLightbox()">
+    <div class="lightbox-box" onclick="event.stopPropagation()">
+      <button type="button" class="lightbox-close" onclick="closeLightbox()" aria-label="Đóng ảnh">&times;</button>
+      <img id="lightboxImg" src="assets/img/co-van-nguyen.jpg" alt="Xem ảnh phóng to">
+      <div class="lightbox-caption" id="lightboxCaption">Cô Vân Nguyễn - Quản trị viên Sáng lập</div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/ai-assistant.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
+
